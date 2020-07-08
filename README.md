@@ -1,10 +1,6 @@
-<p align="center">
-    <img alt="Pod Point" height="150" src="./support/logo.png" title="Pod Point" width="498" />
-</p>
+# BizWHois Project
 
-# Pod Point - Full stack coding test
-
-Hi and welcome to our coding test for joining the Pod Point Software Team!
+Hi and welcome to my project.
 
 ***
 
@@ -13,16 +9,8 @@ Hi and welcome to our coding test for joining the Pod Point Software Team!
 * [Presentation](#presentation)
 * [Prerequisites](#prerequisites)
 * [About your implementation](#about-your-implementation)
-* [Your dev environment](#your-dev-environment)
+* [Environment](#your-dev-environment)
 * [The task](#the-task)
-* [About you](#about-you)
-    * [Your comments](#your-comments) (optional)
-
-***
-
-<p align="center">
-    <strong>IMPORTANT: Publishing your test on a public repository would render an automatic disqualification</strong>
-</p>
 
 ***
 
@@ -38,16 +26,6 @@ Think about your markup and CSS in terms of re-usability and maintainability acr
 
 You should be able to produce the work with a high quality finish in an acceptable amount of time.
 
-Design:
-
-<p align="center">
-    <a href="./support/design.png">
-        <img alt="Design low res" height="600" src="./support/design-low.png" title="Design low res" width="337" />
-        <br />
-        View High Resolution
-    </a>
-</p>
-
 <a id="prerequisites"></a>
 ## Prerequisites
 
@@ -61,21 +39,15 @@ If you're using windows, you will need:
 <a id="about-your-implementation"></a>
 ## About your implementation
 
-* Fill the [About you](#about-you) section below.
 * If you have any notes to add to your test, please add them in the [Your comments](#your-comments) section below.
-* Send a zip file with your completed entry to [peter.ward@pod-point.com](mailto:peter.ward@pod-point.com).
+* Send a zip file with your completed entry to [marius.cucuruz@gmail.com](mailto:marius.cucuruz@gmail.com).
 
 <a id="your-dev-environment"></a>
 ## Your dev environment
 
-Once docker is downloaded, run the newly installed docker application, and wait for the message ‘Docker is now up and running’ to appear on the docker window.
-
-We've prepared a docker environment for this test.
-
-All you have to do, is run `./bin/docker-run.sh` and it will download all the relevant modules for each of the stacks and then spin up 3 containers:
-* `podpoint-api` (for back end work, accessible on [http://localhost:8000/](http://localhost:8000/))
-* `podpoint-api-docs` (for API documentation, accessible on [http://localhost:8001/](http://localhost:8001/))
-* `podpoint-front` (for front end work, accessible on [http://localhost:8080/](http://localhost:8080/))
+All you have to do, is run `docker-compose up -d (--build)` and it will download all the relevant modules for each of the stacks and then spin up 2 containers:
+* `api.BizWHois.local` (for back end work, accessible on [http://localhost:8000/](http://localhost:8000/))
+* `app.BizWHois.local` (for front end work, accessible on [http://localhost:8080/](http://localhost:8080/))
 
 > **NOTE: If using Windows & Docker toolbox, run `docker-machine ip` to get the IP of your docker containers, then use this IP instead of `localhost` followed by the same ports as described above**
 *(e.g. IP is `192.168.99.100`, API docs container will be accessible on [http://192.168.99.100:8001](http://192.168.99.100:8001))*
@@ -83,43 +55,10 @@ All you have to do, is run `./bin/docker-run.sh` and it will download all the re
 <a id="the-task"></a>
 ## The task
 
-We need to build a very simple application that will be able to handle our units and give the ability to start/end a charge on a unit.
+We need to build a very intuitive app to allow searching records against the Companies House DB.
 
-For this test you will need to implement this API, and build a simple frontend to list units & interact with units (start/stop a charge).
-
-The test is split into 2 sections presenting the need for back end & front end:
-* [see back end details](./docs/backend.md)
-* [see front end details](./docs/frontend.md)
-
-***
-
-<p align="center">
-    <strong>Thanks and good luck!</strong>
-</p>
-
-***
-
-<a id="about-you"></a>
-## About you
-
-* **First name:** `Marius`
-* **Last name:** `Cucuruz`
-* **E-mail:** `marius.cucuruz@gmail.com`
-
-
-<a id="your-comments"></a>
-### Your comments (optional)
-
+For this test you will need to implement this API, and build a simple frontend to search and list results.
 * start the project by running `docker-compose up --build -d && docker-compose logs -f` from the root of the project which will serve the application on `http://localhost:3000/`;
 * I've opted for `docker-compose` as a personal preference;
-* ran into some (known) issues with `react-scripts@3.4.1` starting in the foreground on Docker;
-* managed to shoot myself in the foot by unwittingly utilizing `npm install` in the Dockerfile (after building and testing the front-end individually with `yarn`) causing issues and delays;
-* this has been a great opportunity for me to learn React which I quite like and will be using more of it in the future.
-
-***
-
-<p align="center">
-    <strong>IMPORTANT: Publishing your test on a public repository would render an automatic disqualification</strong>
-</p>
 
 ***
