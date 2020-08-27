@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class ExampleController extends Controller
@@ -20,7 +19,5 @@ class ExampleController extends Controller
     public function getAll()
     {
         $response = Http::get('http://test.com');
-
     }
-
 }
