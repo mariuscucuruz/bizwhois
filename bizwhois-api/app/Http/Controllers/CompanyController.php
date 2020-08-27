@@ -21,8 +21,7 @@ class CompanyController extends Controller
     {
         if (!env('API_URL') || !env('API_KEY')) {
             abort(403, 'Missing API details.');
-            #throw new \Exception('Missing API details.');
-
+            //throw new \Exception('Missing API details.');
         }
 
         $this->apiUrl = env('API_URL');
@@ -33,17 +32,19 @@ class CompanyController extends Controller
 
     /**
      * Route handle.
+     *
      * @param Request $request
+     *
      * @return array
      */
-    public function findByName(Request $request, $companyName) : array
+    public function findByName(Request $request, $companyName): array
     {
         $found = [];
-        $response = $this->apiCall("search-company", urlencode($companyName));
+        $response = $this->apiCall('search-company', urlencode($companyName));
 
         foreach ($response->json()['items'] as $item) {
             $found[] = [
-                'company_name' => $item['title'] .' '. $item['company_type'] .' '. $item['company_status'],
+                'company_name'   => $item['title'].' '.$item['company_type'].' '.$item['company_status'],
                 'company_number' => $item['company_number'],
             ];
         }
@@ -53,12 +54,14 @@ class CompanyController extends Controller
 
     /**
      * Route handle.
+     *
      * @param Request $request
+     *
      * @return array
      */
-    public function findByOfficer(Request $request, $officerName) : array
+    public function findByOfficer(Request $request, $officerName): array
     {
-        $response = $this->apiCall("search-officer", urlencode($officerName));
+        $response = $this->apiCall('search-officer', urlencode($officerName));
 
         return $response->json();
     }
@@ -67,10 +70,11 @@ class CompanyController extends Controller
      * Route handler.
      *
      * @param Request $request
-     * @param int $companyNumber
+     * @param int     $companyNumber
+     *
      * @return array
      */
-    public function findByNumber(Request $request, int $companyNumber) : array
+    public function findByNumber(Request $request, int $companyNumber): array
     {
         // prepend 0's to short numbers
         $companyNumber = str_pad($companyNumber, 8, 0, STR_PAD_LEFT);
@@ -78,7 +82,7 @@ class CompanyController extends Controller
         $details = false; //Company::findByNumber($companyNumber);
 
         if (!$details) {
-            $apiResponse = $this->apiCall("get-company", $companyNumber);
+            $apiResponse = $this->apiCall('get-company', $companyNumber);
 
             $details = $this->parseDetails($apiResponse->json());
         }
@@ -88,6 +92,7 @@ class CompanyController extends Controller
 
     /**
      * @param $json
+     *
      * @return mixed
      */
     private function parseDetails($json)
@@ -103,6 +108,7 @@ class CompanyController extends Controller
      *
      * @param $operation
      * @param $payload
+     *
      * @return mixed
      */
     private function apiCall($operation, $payload)
@@ -111,13 +117,13 @@ class CompanyController extends Controller
 
         switch ($operation) {
             case 'search-company':
-                $response = $this->apiClient->get($this->apiUrl ."/search/companies/?q=". $payload);
+                $response = $this->apiClient->get($this->apiUrl.'/search/companies/?q='.$payload);
                 break;
             case 'search-officer':
-                $response = $this->apiClient->get($this->apiUrl ."/search/officers/?q=". $payload);
+                $response = $this->apiClient->get($this->apiUrl.'/search/officers/?q='.$payload);
                 break;
             case 'get-company':
-                $response = $this->apiClient->get($this->apiUrl ."/company/". $payload);
+                $response = $this->apiClient->get($this->apiUrl.'/company/'.$payload);
                 break;
         }
 
@@ -126,6 +132,7 @@ class CompanyController extends Controller
 
     /**
      * @param $response
+     *
      * @return mixed
      */
     private function handleResponse($response)
@@ -139,17 +146,20 @@ class CompanyController extends Controller
      * Update API limits / quota after each request.
      *
      * @param array $headers
+     *
      * @return |null
      */
     private function updateLimits(array $headers = [])
     {
-        if (!count($headers) > 0) return null;
+        if (!count($headers) > 0) {
+            return null;
+        }
 
         $this->apiLimits = [
             'limit'  => $headers['X-Ratelimit-Limit'] ?? null,
             'remain' => $headers['X-Ratelimit-Remain'] ?? null,
-            'reset' => $headers['X-Ratelimit-Reset'] ?? null,
-            'window' => $headers['X-Ratelimit-Window'] ?? null
+            'reset'  => $headers['X-Ratelimit-Reset'] ?? null,
+            'window' => $headers['X-Ratelimit-Window'] ?? null,
         ];
     }
 }

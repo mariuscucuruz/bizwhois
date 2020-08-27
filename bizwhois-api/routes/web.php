@@ -1,4 +1,5 @@
 <?php
+
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 /*
@@ -12,19 +13,19 @@
 |
 */
 
-$router->group([
-//    'prefix' => 'units',
-    'namespace' => '\App\Http\Controllers'
-],
+$router->group(
+    [
+        //    'prefix' => 'units',
+        'namespace' => '\App\Http\Controllers',
+    ],
     function () use ($router) {
-
         $router->get('/{companyNumber}', 'CompanyController@findByNumber');
 
         $router->get('/find/{companyName}', 'CompanyController@findByName');
 
         $router->get('/', 'CompanyController@getAll');
-    });
-
+    }
+);
 
 //$router->get('/', function () use ($router) {
 //    return $router->app->version();
